@@ -13,15 +13,14 @@ async function run(): Promise<void> {
     const iosURL = expoBaseURL + iosBuildID
     const androidURL = expoBaseURL + androidBuildID
 
+    const iosQR = qrBaseURL + iosBuildID
+    const androidQR = qrBaseURL + androidBuildID
+
     const defaultMessage =
       `Builds available on Expo Go\n\n` +
       `\n|iOS|Android|` +
       `\n|:-:|:-:|` +
-      `\n|<a href="${iosURL}"><img src="${
-        qrBaseURL + iosURL
-      }" alt="iOS Build Link"></a>|<a href="${androidURL}"><img src="${
-        qrBaseURL + androidURL
-      }" alt="Android Build Link"></a>|`
+      `\n|<a href="${iosURL}"><img src="${iosQR}" alt="iOS Build Link"></a>|<a href="${androidURL}"><img src="${androidQR}" alt="Android Build Link"></a>|`
 
     const token = core.getInput('repo-token', {required: true})
     const octokit = github.getOctokit(token)
