@@ -22,5 +22,5 @@ jobs:
       - uses: matthewmcintyre/eas-update-qr-commenter@main
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          ios-build-id: "123abc"
-          android-build-id: "456def"
+          ios-build-id: "123456789"
+          android-build-id: "abcdefghi"
