@@ -1,6 +1,6 @@
 # EAS Update QR Commenter
 
-This action prints QR codes for iOS and Android expo builds.
+This action prints QR codes for iOS and Android expo builds. It is extremely simple given it combines strings and comments..
 
 ## Inputs
 

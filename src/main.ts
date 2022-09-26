@@ -1,26 +1,22 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
-const expoBaseURL = 'exp://u.expo.dev/update/'
-const qrBaseURL =
-  'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
+const expoQRBaseURL =
+  'https://qr.expo.dev/eas-update?appScheme=exp&host=u.expo.dev&updateId='
 
 async function run(): Promise<void> {
   try {
     const iosBuildID = core.getInput('ios-build-id', {required: true})
     const androidBuildID = core.getInput('android-build-id', {required: true})
 
-    const iosURL = expoBaseURL + iosBuildID
-    const androidURL = expoBaseURL + androidBuildID
-
-    const iosQR = qrBaseURL + iosBuildID
-    const androidQR = qrBaseURL + androidBuildID
+    const iosQR = expoQRBaseURL + iosBuildID
+    const androidQR = expoQRBaseURL + androidBuildID
 
     const defaultMessage =
       `Builds available on Expo Go\n\n` +
       `\n|iOS|Android|` +
       `\n|:-:|:-:|` +
-      `\n|<a href="${iosURL}"><img src="${iosQR}" alt="iOS Build Link"></a>|<a href="${androidURL}"><img src="${androidQR}" alt="Android Build Link"></a>|`
+      `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`
 
     const token = core.getInput('repo-token', {required: true})
     const octokit = github.getOctokit(token)
