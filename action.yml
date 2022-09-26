@@ -1,6 +1,12 @@
 name: 'EAS Update QR Commenter'
 description: 'Adds a comment referencing iOS and Android builds within EAS'
 author: 'matthewmcintyre'
+branding:
+  icon: 'smartphone'  
+  color: 'gray-dark'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
 inputs:
   ios-build-id:
     description: 'iOS build id generated from running EAS Update'
@@ -11,9 +17,3 @@ inputs:
   repo-token:
     description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
     required: true
-runs:
-  using: 'node16'
-  main: 'dist/index.js'
-branding:
-  icon: 'smartphone'  
-  color: 'gray-dark'

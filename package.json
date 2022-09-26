@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/matthewmcintyre/eas-update-qr-commenter.git"
   },
   "keywords": [
     "actions",
