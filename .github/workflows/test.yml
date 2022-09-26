@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - uses: matthewmcintyre/eas-update-qr-commenter@v1.1
         with:
           ios-build-id: "123456789"
           android-build-id: "123456789"
