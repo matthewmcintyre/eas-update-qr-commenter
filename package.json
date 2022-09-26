@@ -1,8 +1,7 @@
 {
-  "name": "typescript-action",
+  "name": "eas-update-qr-commenter",
   "version": "0.0.0",
-  "private": true,
-  "description": "TypeScript template action",
+  "description": "A GitHub Action that posts a QR codes for iOS and Android builds from EAS Update.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -22,13 +21,17 @@
     "node",
     "setup"
   ],
-  "author": "",
+  "author": "matthewmcintyre",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.6.0"
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.1.0",
+    "qrcode": "^1.5.1"
   },
   "devDependencies": {
     "@types/node": "^16.10.5",
+    "@types/qrcode": "^1.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.8.1",
     "@vercel/ncc": "^0.31.1",
     "eslint": "^7.32.0",

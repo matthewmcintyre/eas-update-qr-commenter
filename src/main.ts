@@ -1,16 +1,36 @@
+import * as QRCode from 'qrcode'
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as github from '@actions/github'
+
+const expoBaseURL = 'exp://u.expo.dev/update/'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const iosBuildID = core.getInput('ios-build-id', {required: true})
+    const androidBuildID = core.getInput('android-build-id', {required: true})
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const iosURL = expoBaseURL + iosBuildID
+    const androidURL = expoBaseURL + androidBuildID
 
-    core.setOutput('time', new Date().toTimeString())
+    const iosQR = await QRCode.toDataURL(iosURL)
+    const androidQR = await QRCode.toDataURL(androidURL)
+
+    const defaultMessage =
+      `Builds available on Expo Go\n\n` +
+      `\n|iOS|Android|` +
+      `\n|:-:|:-:|` +
+      `\n|<a href="${iosURL}"><img src="${iosQR}" alt="iOS QR Code"></a>|<a href="${androidURL}"><img src="${androidQR}" alt="iOS QR Code"></a>|`
+
+    const token = core.getInput('repo-token', {required: true})
+    const octokit = github.getOctokit(token)
+    const {repo, issue} = github.context
+
+    await octokit.rest.issues.createComment({
+      owner: repo.owner,
+      repo: repo.repo,
+      issue_number: issue.number,
+      body: defaultMessage
+    })
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
