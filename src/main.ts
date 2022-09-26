@@ -1,8 +1,9 @@
-import * as QRCode from 'qrcode'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
 const expoBaseURL = 'exp://u.expo.dev/update/'
+const qrBaseURL =
+  'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='
 
 async function run(): Promise<void> {
   try {
@@ -12,14 +13,15 @@ async function run(): Promise<void> {
     const iosURL = expoBaseURL + iosBuildID
     const androidURL = expoBaseURL + androidBuildID
 
-    const iosQR = await QRCode.toDataURL(iosURL)
-    const androidQR = await QRCode.toDataURL(androidURL)
-
     const defaultMessage =
       `Builds available on Expo Go\n\n` +
       `\n|iOS|Android|` +
       `\n|:-:|:-:|` +
-      `\n|<a href="${iosURL}"><img src="${iosQR}" alt="iOS QR Code"></a>|<a href="${androidURL}"><img src="${androidQR}" alt="iOS QR Code"></a>|`
+      `\n|<a href="${iosURL}"><img src="${
+        qrBaseURL + iosURL
+      }" alt="iOS Build Link"></a>|<a href="${androidURL}"><img src="${
+        qrBaseURL + androidURL
+      }" alt="Android Build Link"></a>|`
 
     const token = core.getInput('repo-token', {required: true})
     const octokit = github.getOctokit(token)
