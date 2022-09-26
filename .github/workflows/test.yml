@@ -22,5 +22,5 @@ jobs:
       - uses: ./
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          ios-build-id: "123456789"
-          android-build-id: "abcdefghi"
+          ios-build-id: "123456789abc"
+          android-build-id: "123456789abc"
