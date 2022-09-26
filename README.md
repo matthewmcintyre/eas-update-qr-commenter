@@ -23,7 +23,7 @@ This action prints QR codes for iOS and Android expo builds. It is extremely sim
 ```yml
 uses: matthewmcintyre/eas-update-qr-commenter@v1.4
 with:
-  ios-build-id: "${{ secrets.GITHUB_TOKEN }}"
-  android-build-id: "${{ secrets.GITHUB_TOKEN }}"
+  ios-build-id: "build id generated from expo update"
+  android-build-id: "build id generated from expo update"
   repo-token: "${{ secrets.GITHUB_TOKEN }}"
 ```
