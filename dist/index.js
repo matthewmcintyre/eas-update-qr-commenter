@@ -41,21 +41,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-const expoBaseURL = 'exp://u.expo.dev/update/';
-const qrBaseURL = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=';
+const expoQRBaseURL = 'https://qr.expo.dev/eas-update?appScheme=exp&host=u.expo.dev&updateId=';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const iosBuildID = core.getInput('ios-build-id', { required: true });
             const androidBuildID = core.getInput('android-build-id', { required: true });
-            const iosURL = expoBaseURL + iosBuildID;
-            const androidURL = expoBaseURL + androidBuildID;
-            const iosQR = qrBaseURL + iosBuildID;
-            const androidQR = qrBaseURL + androidBuildID;
+            const iosQR = expoQRBaseURL + iosBuildID;
+            const androidQR = expoQRBaseURL + androidBuildID;
             const defaultMessage = `Builds available on Expo Go\n\n` +
                 `\n|iOS|Android|` +
                 `\n|:-:|:-:|` +
-                `\n|<a href="${iosURL}"><img src="${iosQR}" alt="iOS Build Link"></a>|<a href="${androidURL}"><img src="${androidQR}" alt="Android Build Link"></a>|`;
+                `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`;
             const token = core.getInput('repo-token', { required: true });
             const octokit = github.getOctokit(token);
             const { repo, issue } = github.context;
