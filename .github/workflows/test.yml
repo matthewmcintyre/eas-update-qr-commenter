@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: matthewmcintyre/eas-update-qr-commenter@v1.1
+      - uses: ./
         with:
-          ios-build-id: "123456789"
-          android-build-id: "123456789"
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
