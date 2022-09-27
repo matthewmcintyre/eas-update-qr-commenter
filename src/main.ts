@@ -15,7 +15,7 @@ async function run(): Promise<void> {
     const androidQR = expoQRBaseURL + androidBuildID
 
     const defaultMessage =
-      `${commentTitle}\n\n` +
+      `${commentTitle}\n` +
       `\n|iOS|Android|` +
       `\n|:-:|:-:|` +
       `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`

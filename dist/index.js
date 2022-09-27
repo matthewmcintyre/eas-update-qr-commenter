@@ -50,7 +50,7 @@ function run() {
             const androidBuildID = core.getInput('android-build-id', { required: true });
             const iosQR = expoQRBaseURL + iosBuildID;
             const androidQR = expoQRBaseURL + androidBuildID;
-            const defaultMessage = `${commentTitle}\n\n` +
+            const defaultMessage = `${commentTitle}\n` +
                 `\n|iOS|Android|` +
                 `\n|:-:|:-:|` +
                 `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`;
