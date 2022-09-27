@@ -45,11 +45,12 @@ const expoQRBaseURL = 'https://qr.expo.dev/eas-update?appScheme=exp&host=u.expo.
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const commentTitle = core.getInput('comment-title', { required: true });
             const iosBuildID = core.getInput('ios-build-id', { required: true });
             const androidBuildID = core.getInput('android-build-id', { required: true });
             const iosQR = expoQRBaseURL + iosBuildID;
             const androidQR = expoQRBaseURL + androidBuildID;
-            const defaultMessage = `Builds available on Expo Go\n\n` +
+            const defaultMessage = `${commentTitle}\n\n` +
                 `\n|iOS|Android|` +
                 `\n|:-:|:-:|` +
                 `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`;
