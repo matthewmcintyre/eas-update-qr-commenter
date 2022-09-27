@@ -1,5 +1,5 @@
 name: 'EAS Update QR Commenter'
-description: 'Adds a comment referencing iOS and Android builds within EAS'
+description: 'Adds a comment to Pull Requests referencing iOS and Android builds within EAS'
 author: 'matthewmcintyre'
 branding:
   icon: 'smartphone'  
@@ -8,6 +8,10 @@ runs:
   using: 'node16'
   main: 'dist/index.js'
 inputs:
+  comment-title:
+    description: 'Heading text that goes above QR codes'
+    default: 'Builds available on Expo Go'
+    required: true
   ios-build-id:
     description: 'iOS build id generated from running EAS Update'
     required: true

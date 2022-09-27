@@ -6,6 +6,8 @@ const expoQRBaseURL =
 
 async function run(): Promise<void> {
   try {
+    const commentTitle = core.getInput('comment-title', {required: true})
+
     const iosBuildID = core.getInput('ios-build-id', {required: true})
     const androidBuildID = core.getInput('android-build-id', {required: true})
 
@@ -13,7 +15,7 @@ async function run(): Promise<void> {
     const androidQR = expoQRBaseURL + androidBuildID
 
     const defaultMessage =
-      `Builds available on Expo Go\n\n` +
+      `${commentTitle}\n\n` +
       `\n|iOS|Android|` +
       `\n|:-:|:-:|` +
       `\n|![iOS Build QR](${iosQR})|![Android Build QR](${androidQR})|`

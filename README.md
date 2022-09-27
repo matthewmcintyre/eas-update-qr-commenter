@@ -1,29 +1,51 @@
-# EAS Update QR Commenter
+# EAS Update - QR Code Commenter
 
-Note this currently only works on Pull Request events.
+On Pull Requests, adds a comment with QR codes that link to the Expo Go App and into the respective Update.
 
-This action prints QR codes for iOS and Android expo builds. It is extremely simple given it combines strings and comments..
+I created this to mimic the flow of the [Expo Preview Comment Action](https://github.com/expo/expo-github-action) except instead create QR codes for `eas update` rather than `expo publish`.
+
+Because it was a nuisance to figure out, here is an action to save you the mental journey I have been through.
 
 ## Inputs
 
-## `ios-build-id`
-
-**Required** iOS build id
-
-## `android-build-id`
-
-**Required** Android build id
-
-## `repo-token`
-
-**Required** Repo token
+|name|required|description|
+|-|-|-|
+|`repo-token`|true|Github Token used to publish comment|
+|`ios-build-id`|true|iOS Build ID generated from `eas update`|
+|`android-build-id`|true|Android Build ID generated from `eas update`|
+|`comment-title`|false|Title of the comment|
 
 ## Example usage
 
 ```yml
-uses: matthewmcintyre/eas-update-qr-commenter@v1.4
+uses: matthewmcintyre/eas-update-qr-commenter@v2.0
 with:
+  repo-token: "${{ secrets.GITHUB_TOKEN }}"
   ios-build-id: "build id generated from expo update"
   android-build-id: "build id generated from expo update"
-  repo-token: "${{ secrets.GITHUB_TOKEN }}"
+  comment-title: 
+```
+
+## Example Output
+
+![QR Comment Screenshot](qr_screenshot.png)
+
+## Integration into Actions workflow
+
+```yml
+- name: Publish update
+  id: eas-publish-update
+  run: |
+    { 
+      echo 'EAS_UPDATE_OUTPUT<<EOF'
+      eas update --branch "${{ env.BRANCH_NAME }}" --message "${{ env.COMMIT_MESSAGE }}" --json
+      echo 'EOF'
+    } >> "$GITHUB_ENV"
+
+- name: Add QR Code
+  uses: matthewmcintyre/eas-update-qr-commenter@v2.0
+  with:
+    ios-build-id: '${{ fromJSON(env.EAS_UPDATE_OUTPUT)[1].id }}'
+    android-build-id: '${{ fromJSON(env.EAS_UPDATE_OUTPUT)[0].id }}'
+    repo-token: '${{ secrets.GITHUB_TOKEN }}'
 ```
