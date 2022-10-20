@@ -28,7 +28,7 @@
     "@actions/github": "^5.1.0"
   },
   "devDependencies": {
-    "@types/node": "^18.7.22",
+    "@types/node": "^18.11.3",
     "@types/qrcode": "^1.5.0",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
